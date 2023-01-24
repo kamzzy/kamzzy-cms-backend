@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Compares two dates and returns a hash with the difference in seconds, minutes, hours, and days
 module CompareDates
   def compare_dates(date1, date2 = DateTime.now)

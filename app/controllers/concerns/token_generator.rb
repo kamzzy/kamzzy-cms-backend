@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TokenGenerator
   def generate_token(user_id, token_size = 32, url_safe = false)
     random_ascii = [

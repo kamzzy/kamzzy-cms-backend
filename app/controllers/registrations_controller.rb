@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RegistrationsController < ApplicationController
+  before_action :authorized_user?, only: %i[change_password destroy]
   # Register a new user account
   def create
     user = User.create!(register_params)
@@ -64,6 +65,17 @@ class RegistrationsController < ApplicationController
     else
       json_response({ errors: 'Invalid Token' }, 401)
     end
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    # Only allow the owner of the account or an administrator to destroy the account
+    unless user == @current_user || @current_user.admin_level >= 1
+      return head(401)
+    end
+
+    user.destroy
+    json_response({ message: 'Account deactivated' })
   end
 
   private

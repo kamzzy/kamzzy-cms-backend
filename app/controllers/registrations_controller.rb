@@ -70,9 +70,7 @@ class RegistrationsController < ApplicationController
   def destroy
     user = User.find(params[:id])
     # Only allow the owner of the account or an administrator to destroy the account
-    unless user == @current_user || @current_user.admin_level >= 1
-      return head(401)
-    end
+    return head(401) unless user == @current_user || @current_user.admin_level >= 1
 
     user.destroy
     json_response({ message: 'Account deactivated' })

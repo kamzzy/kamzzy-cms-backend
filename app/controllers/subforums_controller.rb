@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SubforumsController < ApplicationController
   before_action :authorized_admin?, only: %i[create update destroy]
   before_action :set_forum, only: %i[create]

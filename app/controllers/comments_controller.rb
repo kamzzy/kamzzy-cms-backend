@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   before_action :authorized_user?, except: %i[show]
   before_action :set_post, only: %i[show create update destroy]
@@ -13,7 +15,7 @@ class CommentsController < ApplicationController
 
     comment = @post.comments.build(comment_params)
     if comment.save
-      json_response({ comment: comment,
+      json_response({ comment:,
                       comments: Post.author_comments_json(@post.comments) })
     else
       json_response({ errors: comment.errors.full_messages }, 401)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   before_action :authorized_user?, except: %i[show lock_post pin_post]
   before_action :authorized_admin?, only: %i[lock_post pin_post]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :authorized_user?, only: %i[update_image]
   before_action :authorized_admin?, only: %i[suspend_communication set_admin_level]
@@ -11,9 +13,7 @@ class UsersController < ApplicationController
       new_user['can_post'] = DateTime.now > user.can_post_date
       new_user['can_comment'] = DateTime.now > user.can_comment_date
       new_user['profile_image'] = nil
-      unless user.profile_image_attachment.nil?
-        new_user['profile_image'] = url_for(user.profile_image)
-      end
+      new_user['profile_image'] = url_for(user.profile_image) unless user.profile_image_attachment.nil?
       users_array.push(new_user)
     end
 
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     if @current_user.update_attribute(:profile_image, params[:user][:profile_image])
       json_response(user: user_with_image(@current_user))
     else
-      json_response({ errors: @current_user.errors.full_messages }, 401 )
+      json_response({ errors: @current_user.errors.full_messages }, 401)
     end
   end
 
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   def suspend_comms(user, comms, attr)
     comms_i = comms.map(&:to_i)
     d = DateTime.now
-    ban_date = DateTime.new(comms_i[0], comms_i[1], comms_i[2], comms_i[3], comms_i[4], 0, d.offset);
+    ban_date = DateTime.new(comms_i[0], comms_i[1], comms_i[2], comms_i[3], comms_i[4], 0, d.offset)
     user.update_attribute(attr, ban_date)
   end
 
@@ -89,9 +89,7 @@ class UsersController < ApplicationController
     user_with_attachment['can_comment'] = DateTime.now > user.can_comment_date
     user_with_attachment['server_date'] = DateTime.now
 
-    unless user.profile_image_attachment.nil?
-      user_with_attachment['profile_image'] = url_for(user.profile_image)
-    end
+    user_with_attachment['profile_image'] = url_for(user.profile_image) unless user.profile_image_attachment.nil?
 
     user_with_attachment
   end

@@ -1,0 +1,9 @@
+Welcome to the React.js Forum-CMS Demo, <%= @user.username %>
+===============================================
+ 
+You have successfully signed up but you need to activate your account.
+ 
+To activate your account and login to the site, just follow this link: 
+<%= link_to "Confirmation link", activate_account_url(:id => @user.id, :activation_key => @user.activation_key) %>
+ 
+Thanks for joining and have a great day!

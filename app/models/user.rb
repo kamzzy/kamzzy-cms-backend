@@ -13,6 +13,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :admin_level, numericality: { only_integer: true,
                                           less_than_or_equal_to: 3 }
+  has_one_attached :profile_image
   before_save { username.downcase! }
   before_save { email.downcase! }
 

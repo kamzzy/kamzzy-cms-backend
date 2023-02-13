@@ -83,6 +83,7 @@ test:
 #
 production:
   <<: *default
-  database: kamzzy_cms_production
-  username: cms
-  password: <%= ENV["CMS_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
+  # database: kamzzy_cms_production
+  # username: cms
+  # password: <%= ENV["CMS_DATABASE_PASSWORD"] %>
